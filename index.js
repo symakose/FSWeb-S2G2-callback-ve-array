@@ -70,9 +70,18 @@ console.log("Tüm Final Maçları Olan Yıllar:", finalYears);
 	💡 İPUCU: Beraberlikler(ties) için şimdilik endişelenmeyin (Detaylı bilgi için README dosyasına bakabilirsiniz.)
 	4. Tüm kazanan ülkelerin isimlerini içeren `kazananlar` adında bir dizi(array) döndürecek(return)  */
 
-function Kazananlar(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Kazananlar(fifaData, Finaller) {
+  const finalMatches = Finaller(fifaData);
+  const kazananlar = finalMatches.map((match) => {
+    if (match["Home Team Goals"] > match["Away Team Goals"]) {
+      return match["Home Team Name"];
+    } else {
+      return match["Away Team Name"];
+    }
+  });
+  return kazananlar;
 }
+console.log(Kazananlar(fifaData, Finaller));
 
 /*  Görev 5: 
 	Bir higher-order fonksiyonu olan YillaraGoreKazananlar isimli fonksiyona aşağıdakileri uygulayın:
