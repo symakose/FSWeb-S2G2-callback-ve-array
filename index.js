@@ -95,10 +95,9 @@ console.log("Tüm Kazanan Ülkelerin İsimleri:", Kazananlar(fifaData, Finaller)
 	
 	💡 İPUCU: her cümlenin adım 4'te belirtilen cümleyle birebir aynı olması gerekmektedir.
 */
-function YillaraGoreKazananlar(fifaData, Finaller, Yillar, Kazananlar) {
-  const finalMatches = Finaller(fifaData);
-  const years = Yillar(fifaData);
-  const winners = Kazananlar(fifaData, Finaller);
+function YillaraGoreKazananlar(data, fFinaller, Yillar, Kazananlar) {
+  const years = Yillar(data);
+  const winners = Kazananlar(data, fFinaller);
   const sentences = years.map((year, index) => {
     const country = winners[index];
     return `${year} yılında, ${country} dünya kupasını kazandı!`;
@@ -106,6 +105,7 @@ function YillaraGoreKazananlar(fifaData, Finaller, Yillar, Kazananlar) {
   return sentences;
 }
 console.log(YillaraGoreKazananlar(fifaData, Finaller, Yillar, Kazananlar));
+
 /*  Görev 6: 
 	Bir higher order fonksiyonu olan `OrtalamaGolSayisi` isimli fonksiyona aşağıdakileri uygulayın: 
 	1. Görev 2'de yazdığınız `Finaller` fonksiyonunu birinci parametre olarak alacak; 'fifaData' dizisini argüman olarak eklediğinizden emin olun
@@ -114,14 +114,17 @@ console.log(YillaraGoreKazananlar(fifaData, Finaller, Yillar, Kazananlar));
 	
 	2. Her maç için Ortalama toplam evsahibi gol sayısı ve toplam deplasman gol sayısını hesaplayacak (her maçta atılan toplam gol sayısı)
 	
-	3. Sonucun 2. ondalığını yuvarlayıp, bulunan değeri döndürecek(return)
+	3. Sonucun 2. ondalığını yuvarlayıp, bulunan değeri döndürecek(return) 
 	
 	💡 İPUCU: .reduce, .toFixed (dizilim(syntax) için MDN'ye bakın) kullan, ve bunu 2 adımda yapın) 
 	
 */
 
-function OrtalamaGolSayisi(/* kodlar buraya */) {
-  /* kodlar buraya */
+function OrtalamaGolSayisi(fFinaller) {
+  const sum = fFinaller.reduce((acc, cur) => {
+    return acc + cur["Home Team Goals"] + cur["Away Team Goals"];
+  }, 0);
+  return (sum / fFinaller.length).toFixed(2);
 }
 
 /// EKSTRA ÇALIŞMALAR ///
